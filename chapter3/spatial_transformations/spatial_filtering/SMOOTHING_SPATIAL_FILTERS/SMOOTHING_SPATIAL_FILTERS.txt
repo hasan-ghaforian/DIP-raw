@@ -1,0 +1,23 @@
+
+SMOOTHING (LOWPASS) SPATIAL FILTERS
+
+smoothing <-> average
+
+Usage
+    Smoothing (also called averaging) spatial filters are used to reduce sharp 
+    transitions in intensity.
+        Noise reduction > random noise typically consists of sharp transitions
+        Resampling > before resampling for avoiding aliasing 
+        reduce irrelevant detail > pixel regions that are small with respect to
+            the size of the filter kernel
+        smoothing the false contours
+
+Types
+    linear
+        convolving an image with a ﬁlter kernel
+            box 
+            Gaussian
+    nonlinear
+
+    Both Gaussian and Box filters are separable
+

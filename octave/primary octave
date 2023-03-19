@@ -1,0 +1,110 @@
+pkg load image
+
+ tx = ty = linespace(-2,2,100);
+ [xx,yy] = meshgrid (tx,ty);
+ tz = 0*xx + 0*yy + 2;
+ mesh(tx,ty,tz)
+
+https://docs.octave.org/v4.2.0/Three_002dDimensional-Plots.html
+
+A=imread ("a.png");
+    M*N*3 for RGB imges or M*N for grayscale
+    i,j,1 : R - i,j,2 : G - i,j,3 : B
+
+rgb2gray(rgb_img)
+    I = 0.298936*R + 0.587043*G + 0.114021*B
+    output of rgb2gray is of type its input (if input is uint8, then output also
+    is of type uint8)
+
+get B channel of RGB image:
+    A(:,:,3)
+
+Each channel of a RGB image is a grayscale image (attention to the range of elements in array and size of channel which is M*N and not the M*N*3)
+
+imhist(A); //needs loading "image" package
+    from https://octave.sourceforge.io/image/function/imhist.html and 
+    https://www.mathworks.com/help/images/ref/imhist.html : 
+    inout image must be grayscale or binary
+
+    https://www.mathworks.com/help/images/ref/imhist.html#d124e160187 :
+    If the image has data type single or double, then values must be in the range [0, 1]. If I has values outside the range [0, 1], then you can use the rescale function to rescale values to the expected range.
+    NOTE: default data type for numeral literals is "double"
+
+
+im2double(A) differs from double(A) from rgb2gray and from mat2gray
+
+double: only change the data type and as it is the widest data type in Octave;
+it does not cause data loss; so data will be represented the same.
+
+im2double: 
+    if data type of input is double, output will be the same.
+    if data type of input is int (for example uint8, uint16, ...) convert data
+    to double and calculate the output by scaling range of original data type to
+    [0,1]. For example 
+        octave:26> im2double (25)
+        ans = 25
+        octave:27> im2double (uint8(25))
+        ans = 0.098039
+        octave:28> im2double (uint16(25))
+        ans = 3.8148e-04
+    As you saw output for uint8(25) and uint16(25) are different; becasue first
+    one belongs to [0,2^8] and second to [0,2^16]. So output for first will be
+    25/2^8 and for second will be 25/2^16.
+
+mat2gray(A):
+    scales the range [min(A),max(A)] (instead of range of source data type) to
+    [0,1] and convert the data type to double. We call this as normalizing.
+    You can use im2double(uint8(A)) as approximation for mat2gray(A). If you do,
+    you will get double data in subrange [0,1]; but you have lost some data by
+    calling uint8 function and image will be pixelized.
+    mat2gray has an overload which accepts min and max to be used rather than
+    [min(A),max(A)].
+
+mat2gray and im2double do not change dimensions of input array. So if input is
+of type RGB, output also is of type RGB.
+
+min
+    min(A,[],'all') -> now only in matlab
+    min(min(A)) -> min on all elements for 2D array
+
+pow
+    if x is of type int, then x^(1/2) will also be an int.
+        octave:18> 3^(1/2)
+        ans = 1.7321
+        octave:19> class(ans)
+        ans = double
+        octave:20> uint8(3)^(1/2)
+        ans = 2
+        octave:21> (uint8(3))^(1/2)
+        ans = 2
+        octave:22> double(uint8(3))^(1/2)
+        ans = 1.7321
+    note: a numeric literal is considered as double
+
+log
+    result of log (even for int data type) will be double
+
+
+getting integer part of quotient in integer division
+    Suppose you want to get 1 as result from x/128 where x is an integer 255 and
+    you do this:
+        > fix(x/128)
+        ans = 2
+    That is strange!
+    To get the desired answer, 
+        convert both operands of division to double
+        use fix or floor functions
+    For our example:
+        > x=uint8(255);
+        > fix(double(x)/128)
+        ans = 1
+
+Random permutation from elements of matrix:
+    A = A(randperm (numel (A)));
+
+Subtracting the next element on a vector
+    use "diff" command:
+        > C=[20, 8, 4, 1];
+        > diff(C)
+        ans =
+        -12   -4   -3

@@ -1,0 +1,20 @@
+This content may be incorrect. I keep this only for idea ...
+
+Pixels with different intensities help us to understand information (for example
+edges, depth, ...).
+If a transformation map two different intensities to the same value, probably we
+loss the informations understandable from those different pixels and different
+intensities. 
+Although not 1-1 transformation may improve quality accidently; but there is a
+probablity of lossing data.
+But with 1-1 transformation, although we have not accidently improving; but at
+least we will be sure that we do not loss data and that transformation does
+not change state to worse state.
+
+Summary
+not 1-1 transformation surely loss data compare to source image -> probably
+accidental:
+    improving
+    worse result
+We are trying to find ways that surely does not change state to worse: improving
+quality with minimum data loos → sure choices, not accidental

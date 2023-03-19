@@ -1,0 +1,28 @@
+
+An image is ﬁltered with a kernel whose coefﬁcients sum to α. Show that the sum
+of the pixel values in the ﬁltered images is α times sum of the original image.
+
+For a specific pixel ƥ, each time we apply kernel on a part of original image,
+if ƥ be a pixel in that area, one coefficient visits that and will multiply and
+use it in result of center. Else the value of ƥ has not role in that result. So
+ƥ has role in total sum when it is part of area which is under the kernel. 
+
+Now suppose we do the convolution in "full" mode. We know that each element of
+kernel visits the ƥ and only visits it one time. So the sume of total
+coefficients in doing convolution which multiply the ƥ will be α. Thus if you
+some all pixels of filtered image, sum will be α times sum of pixels of original
+image. 
+
+Also the same things will be true for doing convolution in "same size" mode when
+size of image (for both height and width) is greater than kernel; because in
+this case again each pixel of original image will visit each coefficient of
+kernel one time. From another perspective, you can say in this case the result
+is the center and non-zero part of full mode wich previously we shown the
+question statement is true for that situations.
+
+But when both dimensions of image are not greater than kernel and we want to do
+the convolution with "same size" mode, is the statement true? As we know result
+of "same size" is part of result of "full" mode and result for full mode was α
+times sum of pixels of original image and when size of image is not greater than
+kernel in both sides, the "same size" convolution will cause data loss (unless
+truncated pixels be 0), so in this case the statement is not true.

@@ -1,0 +1,49 @@
+BOX FILTER KERNELS
+
+Its effect is like shaking the original image.
+
+consists of two parts:
+    A mn array of the same values (typically 1)
+    (normalizing) constant whose value is 1 divided by the sum of the values
+        of the coefficients (i.e., 1 mn when all the coefficients are 1’s)
+    
+usage of normalizing constant:
+    same average for each area in original image and same area in filtered
+    same sum (avoid bias) for total area of image and filtered
+
+What determines the smoothing power? 
+    coefficients
+    size
+As all elements are equal and we product with normalizing constant (which is
+the sum of all elements in array), changing the elements does not cause any
+different result than using 1.
+
+A kernel with greater array will result in more smoother image.
+
+If you divide the normalizing constant with a number greater than 1 (you got
+and used a smaller normalizing contant), for example use 1/625 for array
+5*5, instead of using 1/25 for that array, the result will be:
+    darker than using normal box filter
+    and so: dark things will grow
+If you use greater number as constant, for example 1/5 for array 5*5, then
+you will get:
+    a lighter filtered image
+    and so: dark thing will shrink
+
+If you use a row vector in kernel:
+    image will blurred horizontally (like you shake it horizontally)
+    only vertical borders in right and left of filtered image will be appeared
+
+If you use a columnar vector in kernel:
+    image will blurred vertically (like you shake it vertically)
+    only horizontal borders in top and bottom of filtered image will be appeared
+
+Subtracting result of horizontal box from vertical box
+    My edge detector!
+
+Problems of box filter
+    cannot do lens blur
+    favors blurring along XY axises > response depends on orientation
+
+
+

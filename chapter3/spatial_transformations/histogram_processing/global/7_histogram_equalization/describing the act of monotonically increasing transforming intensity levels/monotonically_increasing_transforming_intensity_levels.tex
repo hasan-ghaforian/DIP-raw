@@ -1,0 +1,238 @@
+\documentclass[a4paper]{article}
+
+\usepackage{fancyvrb}
+\usepackage{xcolor} % enables using colours
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{amsfonts}
+\usepackage{alltt} %"alltt" en­vi­ron­ment which is like the ver­ba­tim
+                    %en­vi­ron­ment ex­cept that \ and braces have their usual
+                    %mean­ings
+\usepackage{tikz}
+\usepackage{cancel}
+\usetikzlibrary{positioning}
+%\usepackage{xepersian}
+
+\pagecolor{black}
+\color{white}
+
+\begin{document}
+
+\paragraph*{Goal}
+is finding a transformation for each random variable to get a uniform random
+variable.
+\paragraph*{Way} is:
+\begin{itemize}
+    \item preface
+        \begin{itemize}
+            \item definition of PDF and CDF
+            \item concept of differentiation of CDF and the PDF
+            \item CDF of a random variable and its map under a monotonically increasing
+            transformation 
+        \end{itemize}
+    \item proposing a special transformation
+\end{itemize}
+
+\pagebreak
+
+\section{Random variable, CDF and PDF}
+
+\paragraph*{Random Variable} is a function like $f$ which:
+
+$$f: S \rightarrow \mathbb{R}$$
+
+\paragraph*{Probability function} for random variable $Pr(B)$: Sum of probabilities for each
+member of $B$.
+For specific case $Pr(X=x_0) = Pr(x_0)$.
+
+\paragraph*{Cumulative distribution function (CDF)}
+
+\begin{itemize}
+    \item for both discrete and continuous 
+    \item its nature is Probability
+\end{itemize}
+
+\paragraph*{Probability density function (PDF)}{
+    \begin{itemize}
+        \item only for continuous random variables
+        \item because $Pr$ for continuous random variables is $0$
+        \item help us to calculate the $Pr$
+        \item nature of PDF is \textbf{not} probability
+            \begin{itemize}
+                \item $pdf\ dx$ is of type probability
+                \item there may be times that $PDF > 1$; but the role of $dx$
+                will cause that not problematic
+            \end{itemize}
+        \item 
+        
+    \end{itemize}
+}
+
+\begin{align*}
+    CDF(a) = Pr (X < a) \\
+    = \int_{-\infty}^{a} pdf\ dx
+\end{align*}
+
+\begin{align*}
+    pdf = \frac{d(CDF)}{dx}
+\end{align*}
+
+\begin{align*}
+    Pr(a < X < b) = \int_{a}^{b} pdf\ dx
+\end{align*}
+
+\pagebreak
+
+\section{Continuous functions and differentiation}
+
+\paragraph*{}
+If $f$ is continuous then:
+\begin{itemize}
+    \item {
+        \begin{align}
+            \exists x_0 \in [a,b] : \int_{a}^{b} f(x)\ dx = f(x_0) (b - a)
+        \end{align}
+    }     
+    \item {
+        \begin{align}
+            \lim\limits_{x \to x_0} (f(x)-f(x_0)) = 0
+        \end{align}
+    }     
+    \item Concept of `$f(x)\ dx$' when $x =x_0$ denotes {
+        \begin{align}
+            \lim\limits_{\Delta x \to 0} f(x_0)\ \Delta x
+        \end{align}
+    }  
+    It means the idea is about limits and no one of $\Delta x$ and $dx$ do not
+    depend to the $x_0$  and nor on the $f(x)$. So we do not write
+    $\cancel{d(x)}$. 
+\end{itemize}
+
+\paragraph*{Note} For a continuous random variable, the CDF also is continuous.
+
+
+
+\pagebreak
+
+\section{Limit of continuous random variable}
+
+For an arbitrary random variable $S$ we can say:
+
+\begin{align}
+    Pr(s_0 < S < s_1) &= CDF_s(s_1) - CDF_s(s_0) \nonumber \\ 
+                      &= \int_{s_0}^{s_1} PDF_s(s) \ ds&&\\
+               (1),(4)& \Rightarrow \exists s_2 \in [s_0,s_1] : Pr(s_0 < S < s_1) = PDF_s (s_2) \ (s_1 - s_0)\\
+               (2),(5)& \Rightarrow \lim\limits_{s_1\to s_0} \Bigl(PDF_s(s_3)  \  (s_1 - s_0)\Bigr) = PDF_s(s_0) \  (s_1 - s_0) \\
+               (3),(6)&  \Rightarrow \lim\limits_{s_1\to s_0} \Bigl(PDF_s(s_3)  \  (s_1 - s_0)\Bigr) = PDF_s(s_0) \  ds \nonumber
+\end{align}
+So we can say:
+\begin{align}
+    \lim\limits_{s_1\to s_0} \Bigl(CDF_s(s_1) - CDF_s(s_0)\Bigr) = PDF_s(s_0) \  ds
+\end{align}
+
+\pagebreak
+
+\section{Monotonically increasing transformation}
+
+\paragraph*{}{
+    
+    Suppose
+    \begin{itemize}
+        \item $s = T(r)$ is a monotonically increasing transformation from a random variable $r$ to another one $s$, so $T(r)$ is $1-1$.
+        \item $s_0 = T(r_0), s_1 = T(r_1)$.
+    \end{itemize}
+
+    We know:
+    \begin{align}
+        CDF_s(s_1) - CDF_s(s_0) &= Pr(s_0 < S < s_1) \nonumber \\
+        &= Pr\Bigl(T^{-1}(s_0) < T^{-1}(S) < T^{-1}(s_1)\Bigr) \\
+        &=Pr(r_0 < R < r_1) \nonumber \\
+        =CDF_r(r_1) - CDF_r(r_0)
+    \end{align}
+}
+\paragraph*{Note} The eq.(8) is proved in \emph{measure theory}.
+
+\paragraph*{}{
+    \begin{align}
+        (7),(9) \Rightarrow PDF_s(s_0) \ ds = PDF_r(r_0) \ dr
+    \end{align}
+}
+
+\paragraph*{}{
+    
+Also you can see:
+\begin{itemize}
+    \item https://dsp.stackexchange.com/a/61112/11856
+    \item https://dsp.stackexchange.com/q/30502/11856
+\end{itemize}
+}
+
+\pagebreak
+
+\section*{}
+
+\paragraph*{}
+Let 
+\begin{itemize}
+    \item $r$ is a \emph{continuous} random variable
+    \item $p_r$ is $PDF_r$
+    \item $s$ is another random variable
+        \begin{align}
+            s =T(r) = (L-1) \int_{0}^{r} p_r(w) \ dw
+        \end{align}
+    \item $p_s$ is $PDF_s$
+\end{itemize}
+
+Now we want to show that 
+\begin{align*}
+    p_s = \frac{1}{L-1}
+\end{align*}
+
+Really $T(r)$ is $CDF_r(r) - CDF_r(0)$
+\footnote{This is true for continuous random variables. For a discrete random variable, $T(r)$ will be $CDF_r(r)$.}
+, so it is a continuous and monotonically increasing function. So we can use
+eq.(10): 
+\[ p_s = p_r \frac{dr}{ds} \]
+
+\paragraph*{}
+
+
+\begin{proof}
+    To use eq.(10), we only need to get the $ds$:
+    \begin{align*}
+        (11) \Rightarrow\\ 
+        ds &= d(T(r)) \ dr = (L-1) p_r \  dr\\
+        p_s &= p_r \frac{dr}{ds} && \text{replacing $ds$ in eq.(10)}\\
+        &=p_r \frac{dr}{(L-1) p_r \  dr}\\
+        &=\frac{1}{L-1}
+    \end{align*}
+\end{proof}
+
+\pagebreak
+
+\section{Summary}
+
+\begin{itemize}
+    \item preface
+    \begin{itemize}
+        \item relation between CDF and PDF
+        \item CDF and PDF $d$
+        \item measure theory and monotonically transformation $\Rightarrow$
+        equal CDF s
+        \item $p_s = \frac{dr}{ds}p_r$
+    \end{itemize}
+    \item $$T(r) = (L-1)\int_{0}^{r}p_r(w)\ dw$$
+\end{itemize}
+For a continuous random variable, $r$, above $T(r)$ will get a uniform random
+variable $s$ which $p_s$ is $\frac{1}{L-1}$.
+\paragraph*{Note} for histogram equalization, $L-1$ is max possible intensity
+level of the range of image data type, or equivalently you can think $L$ is the
+number of possible intensity levels in the image:
+\begin{itemize}
+    \item double $\rightarrow$ 1
+    \item uint8 $\rightarrow$ 255
+    \item uint16 $\rightarrow$ $2^{16} - 1$
+\end{itemize}
+
+
+
+\end{document}

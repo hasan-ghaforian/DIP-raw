@@ -1,0 +1,70 @@
+Spatial domain:
+The section of the real plane spanned by the coordinates of an image is called
+the spatial domain, with x and y being referred to as spatial variables or spatial coordinates.
+
+
+Intensity Transformations and Spatial Filtering
+
+Image processing: <b>transformaing</b> data (intensity) of pixels to another
+data. Both <i>spatial processing</i> and <i>transform processing</i>
+transformations do transformatinos. So what is the different?
+
+Incorrect thought about spatial processing ways:
+<ul>
+    <li>
+        <s>work on pixels and we know intensity of each pixel will be
+            transformed to what</s>.
+    </li>
+    <li><s>Directly change the intensity of pixels by a transformation.</s></li>
+</ul>
+
+<p>Specification of <i>transform processing</i> ways:<br/>
+    First transforming an image into the transform domain, doing the processing
+    there, and obtaining the inverse transform to bring the results back into the spatial domain.
+</p>
+
+<p>
+    In both <i>Spatial processing</i> and <i>transform processing</i>
+    transformations, transformation may be a combination of multiple
+    transformations; but the meaning of pixels remain. It means after any
+    transformation, the result is an image, and so the result of all
+    Transformations. But in <i>transform domain</i>, there is a time you do a
+    transformation but its result is not an image (when you transform image to
+    transform domain); although the result of all transformations in a <i>transform domain</i> is also an image.
+</p>
+
+Spatial processing ways:
+<ul>
+    <li>
+        Intensity transformations<br />
+        point processing<br/>
+        Its input is a single pixel of image<br />
+        contrast manipulation and image thresholding
+    </li>
+    <li>
+        Spatial ﬁltering<br />
+        (neighborhood processing)<br/>
+        Performs operations on the neighborhood of every pixel<br />
+        image smoothing and sharpening
+    </li>
+</ul>
+
+In intensity transformations, <code>s=T(r)</code> shows the output only depends
+on intensity of pixel ↔ all pixels with same intensity will have same output
+
+usage of spatial processing in apps:
+<ol>
+    <li>directly in broad range of apps</li>
+    <li>
+        providing better image for specific application than original one<br/>
+        most thechniques in this purpose.
+    </li>
+</ol>
+
+Terminology
+
+intensity compression « when image is washed-out
+    more darker
+intensity widening-expanding
+    more lighter
+

@@ -1,0 +1,2 @@
+dynamic range of the intensity levels: the range of values spanned by the gray
+scale is referred to as the dynamic range

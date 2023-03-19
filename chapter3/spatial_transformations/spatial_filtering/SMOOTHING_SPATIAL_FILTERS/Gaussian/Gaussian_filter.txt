@@ -1,0 +1,81 @@
+
+Why Gaussian?
+    The only filter which has both these two properties:
+        circularly symmetric
+        separable
+
+What is circularly symmetric?
+    circularly symmetric (or isotropic) meaning their response is independent of
+    orientation
+
+What is the kernel?
+    distance table
+        For an odd m,
+            put 0 at the center
+            for vertical and horizontal elements write direct distances
+            for other elements calculate distance with \sqrt(s^2 + t^2)
+
+        For mm kernel, maximum horizontal and vertical distance is (m-1)/2 and
+        maximum distance is ((m-1)/2)*sqrt(2)
+    
+    kernel
+        For each element, get the distance to the center as r. Array element will be:
+            Ke^{-\frac{r^2}{2𝜎^2}}
+        Get normalizing constant as sum of array elements.
+        Now the kernel is:
+            normalizing constant * array
+
+Size of kernel
+    Theoretical
+        Chebyshev's inequality
+            Pr(|X-ƞ|<k𝜎)≥1-1/(k^2) (where ƞ is the mean of distribution, some
+            times denoted by µ)
+        Chebyshev's inequality says for k=3, Pr will be more than 88% and for
+        k=6, Pr will be more than 97%.
+
+        Also you can calculate the integral for 1D Gaussian function:
+            Pr(-2𝜎 < X < 2𝜎) = 0.954
+            Pr(-3𝜎 < X < 3𝜎) ≅ 0.0.9973
+        We know the Pr is not the value of PDF (here the Gaussian function); but
+        the value of integral on PDF or for discrete case, sum of all
+        probabilies in a range which is sum of value of PDF for X in that range.
+        So when we say Pr(-3𝜎 < X < 3𝜎) ≅ 0.0.9973 you can be sure that sum of
+        values of Gaussian function for elements out of -3𝜎 < X < 3𝜎 range is
+        less than 0.27% which is maximum value for missed part of the Gaussian weight. Or by using Chebyshev's inequality, for elements out of
+        range -6𝜎 < X < 6𝜎 is less than 3%.
+        Thus if we prunning all elements after 6𝜎 ⨉ 6𝜎, we do not loss the
+        value more than 1%.
+
+        But if r = 3𝜎 is enough, then why we use 6𝜎? OK! 3𝜎 is the size of
+        radious but the size of radious is calculated from center of kernel. So
+        maximum dixtance from center must be 3𝜎 and size will be 6𝜎.
+
+        For continuous case, for specific radious r, the shape for area with
+        distances equal to or less than 3𝜎 will be a circle; but for discrete
+        case it will be a square which causes including more points than a
+        circle which means it will be more than enough.
+
+        Finally it seems when we want to use radious r = 3𝜎, then we have to
+        use a kernel with size 2⎡3𝜎⎤+1. 
+
+        See my question:
+        https://dsp.stackexchange.com/questions/86221/the-effect-of-the-finite-radius-of-gaussian-kernel 
+    
+    Practical
+        So for a Gaussian kernel, if the 𝜎 is 7 then 6 ⨉ 𝜎 = 6 ⨉ 7 = 42. Now
+        we have to use a kernel of size at least 42 ⨉ 42 and as size of kernel
+        must be odd, we have to use 43 ⨉ 43 kernel.
+
+Generating Gaussian kernel in Octave
+    Use fspecial:
+        fspecial('gaussian', [m n], 𝜎)
+    Above command returns an array which is normalized: sum of its elements is 1
+    I compare the result of above command and what the Gonzalez sayes in his
+    book (and also what I got manually) and all are equal.
+
+    variance of generated kernel
+        See Unexpected variance from Octave for Gaussian distribution.odt file.
+        
+
+    
+

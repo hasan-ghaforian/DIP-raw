@@ -1,0 +1,100 @@
+
+Histogram is a graphical representation of the intensity distribution of an
+image. In simple terms, it represents the number of pixels for each intensity
+value considered. 
+
+a histogram is an approximation to a PDF
+
+Contrast enhancement is usually the goal for histogram equalization, and making
+the histogram more uniform is the means to achieve it. You can see:
+    https://dsp.stackexchange.com/a/85981/11856 
+    Chapter 3 "Intensity Transformations and Spatial Filtering" (pages 139-140)
+    of Gonzalez:
+        The net result is contrast enhancement
+
+Contrast enhancement is not always about widening of contrast (increasing range
+of intensities, ...). For example contrast and bin area may be compressed after
+equalization. For example see "2.png" and result of its histogrammatically
+equalized "2-histeq.png" or "1.png" and "1-1th-histeq". Also FIGURE 3.19 from
+chapter "Intensity Transformations and Spatial Filtering" display an
+equalization transformation which compress the range of intensities from [0,7]
+into the [1,7] which means reducing 12.5%.
+
+As it is described in "describing the act of monotonically increasing
+transforming intensity levels", the "T(r) = (L-1)\int_{0}^{r}p_r(w) dw"
+satisfies what we want.
+
+But there are other transformations for ding histogram equalization.
+
+Note;
+    Histogram equalization cannot be applied separately to the Red, Green and
+    Blue components of the image as it leads to dramatic changes in the image’s
+    color balance. However, if the image is first converted to another color
+    space, like HSL/HSV color space, then the algorithm can be applied to the
+    luminance or value channel without resulting in changes to the hue and
+    saturation of the image. 
+
+So histeq must be done on grayscale image.
+
+In Matlab and Octave output of histeq, regardless of data type (class) of input
+will be double. 
+
+T(r) only depends on 
+    • CDF 
+        number of pixels in image with intensity level less than or equal to the r
+    • data type of image
+    • number of pixels in image
+
+Multiple use of histeq on histogrammatically equalized image does not improve
+the quality detectable by human eye; but its changes on histogram may be
+visible. 
+    T(r_0) only dpends on \sum\limits_{i=0}^{r_0} n_i which n_i is the number of
+    pixels with intensity r_i. Now if s_0=T(r_0) then n_{r_0} in the first image
+    and n_{s_0} in the second image are equal; because T(r) is stricktly
+    monotonic increasing function on (0,L-1) (and not [0,L-1]) if there is no
+    data loss occured by rounding or limits of bin numbers.
+
+number of bins and the height of them (pixels in bins)
+
+    Theoretically when you use the transformation that is described in
+    "describing the act of monotonically increasing transforming intensity
+    levels" histeq does not change the number of intensity bins and number of
+    pixels in each intensity bin (at least when transformation is 1-1).
+
+    But in action that numbers change:
+        data loss during mathematical operations for getting equalized
+        histogram. This changes the number of bins and also may round two input
+        bins into one output bin.
+
+        data loss for equalizing uint images. For example you may get 7.1 as
+        output for bin1 and 6.9 for bin2. But in storing as int image, both will
+        be stored as 7.
+
+        Octave and Matlab limit the number of bins. The default is 64. Also you
+        can give the number of bins to the software (see
+        https://www.mathworks.com/help/images/ref/histeq.html#d124e124088 and 
+        https://octave.sourceforge.io/image/function/histeq.html). Although you
+        cannot get the number of bins from commands imhist and histeq; because
+        histeq returns a matrix with same dimensions as original image and
+        imhist defaults are 2 for binary images, and 256 for grayscale images
+        (it counts even empty bins). But you can see the difference in result of
+        histeq and also on displaying imhist for equalized image:
+            > q1=histeq (p);
+            > imhist(q1);title("q1")
+            > size(imhist(q1))
+            ans =
+            256     1
+            > q2=histeq (p,500);
+            > imhist(q2);title("q2")
+            > size(imhist(q2))
+            ans =
+            256     1
+
+
+    The histogram of J is flatter when n is much smaller than the number of
+    discrete levels in I. ← But this reduce the number of colors in output
+
+Questions
+    Does doing "contrast stretching" help to histeq?
+    multiple applying the HE?
+

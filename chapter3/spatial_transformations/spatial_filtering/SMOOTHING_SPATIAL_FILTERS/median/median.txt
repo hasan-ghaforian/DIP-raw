@@ -1,0 +1,21 @@
+
+This filter works well for removing noise, especially impulse noise (Salt and
+pepper noise).
+allows the preserving of edges while removing noise.
+
+non-linear
+order statistics
+removing noise
+    impulse noise
+preserving edges
+smoothing (also)
+
+select element (m^2+1)/2 as result.
+
+Isolated clusters of pixels that are light or dark with respect to their
+neighbors, and whose area is less than m^2/2 (one-half the ﬁlter area), are
+forced by an m × m median ﬁlter to have the value of the median intensity of the
+pixels in the neighborhood. So small objects (not only their edges) will be
+deleted! 
+
+Why is smoothing? because remove noises.

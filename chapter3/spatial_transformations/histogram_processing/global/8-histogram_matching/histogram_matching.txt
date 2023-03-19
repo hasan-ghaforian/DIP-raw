@@ -1,0 +1,33 @@
+histogram_matching
+
+Goal:
+    Suppose we have to PDFs: p_r which is relative to image I and p_z. We want
+    to find a transformation from I to get the output which its PDF (and so its
+    histogram) be similar (scaled shape) to p_z.
+
+Theoretical:
+    We know there is a transformation like T which transforms p_r to uniform
+    random variable in [0,L-1]. Also another one like G for p_z. Theoretically
+    both G and T are strictly monotonical increasing functions. So G^{-1}
+    exists. Now T maps p_r to uniform and G^{-1} maps uniform to p_z. So
+    G^{-1}(T) maps p_r to p_z.  □
+
+Practical:
+    In practice, T and G may be not 1-1. So for mapping p_r to p_z:
+        find T and G (HE for p_r and p_z)
+        for each r_0 bin in source bins
+            find s_0 where s_0=T(r_0)
+            find nearest element in R_G to s_0, for example sʹ_0
+            find z_0 which G maps it to sʹ_0
+            map r_0 to z_0
+    
+    But what have we do if there are z_0 and z_1 which G maps both to sʹ and
+    there is rʹ in D_T which T(rʹ)=sʹ?
+        In this case we cannot solve the problem.
+    So:
+        G must be 1-1 at least for all elments in R_T.
+    But Gonzalez has a convention for these cases:
+        When more than one value of zq gives the same match (i.e., the mapping
+        is not unique), choose the smallest value by convention.
+
+

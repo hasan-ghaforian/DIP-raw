@@ -1,0 +1,10 @@
+
+enhancement by histogram statistics
+
+measure of average intensity
+    mean = µ = Ƞ = \sigma\limits_{0}^{L-1} r_i p_r(r_i)
+
+measure of image contrast
+    𝝈^2 = E(r_i - Ƞ)^2 = \sigma\limits_{0}^{L-1} (r_i - Ƞ)^2 p_r(r_i)
+
+

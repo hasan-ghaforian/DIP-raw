@@ -1,0 +1,33 @@
+SHARPENING_(HIGHPASS)_SPATIAL_FILTERS
+
+Way:    highlights transitions in intensity
+
+Edges in images are areas with strong intensity contrasts; a jump in intensity
+from one pixel to the next. 
+
+We use averaging for doing smoothing which is analogous for integral.
+We use differetiation for doing sharpening.
+
+The strength of the response of a derivative operator is proportional to the
+magnitude of the intensity discontinuity at the point at which the operator is
+applied. 
+
+Image differentiation 
+    enhances
+        discontinuities
+            edges
+            noise
+    de-emphasizes
+        areas with slowly varying intensities
+
+Usually two ways based on differentiation:
+    Laplacian
+        searches for zero crossings in the second derivative of the image. 
+    gradient
+        detects the edges by looking for the maximum and minimum in the first
+        derivative of the image.
+
+Gradiant
+    ∇ is the direction and rate of fastest increase
+    If the gradient of a function is non-zero at a point p, the direction of the gradient is the direction in which the function increases most quickly from p, and the magnitude of the gradient is the rate of increase in that direction, the greatest absolute directional derivative.
+    

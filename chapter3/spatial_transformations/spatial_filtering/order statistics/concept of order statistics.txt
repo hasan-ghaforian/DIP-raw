@@ -1,0 +1,5 @@
+order statistics
+
+the pixel values can be ordered from smallest to the largest (ascending order)
+
+
