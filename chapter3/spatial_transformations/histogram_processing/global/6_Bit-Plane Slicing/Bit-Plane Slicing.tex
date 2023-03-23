@@ -1,0 +1,42 @@
+\subsection{Bit-Plane Slicing}
+
+The operation is:
+\begin{enumerate}
+    \item converting the pixel values in the binary form (\emph{sequence} of 
+        bits)
+    \item dividing bits into bit planes
+\end{enumerate}
+
+Notes:
+\begin{itemize}
+    \item Number of \emph{bit-planes} is the number of bits in each pixels.
+    \item Size of \emph{bit-planes} must be same as size of image.
+\end{itemize}
+
+So for an 8bit image, you have to consider 8 planes and for 3bit image, 3 planes.
+
+To get most significant bit (\emph{MSB}) and Least significant bit (\emph{LSB})
+, convert data to binary. Left bit is \emph{MSB} and right bit is \emph{LSB}.
+Left bit is called \emph{MSB} because if left bit of $11111111$ is changed to 
+$0$ (i.e. $01111111$), then the value changes from $255$ to $127$. But if you 
+change the right bit, it will change from $255$ to $254$.
+
+In bit-plane slicing of an 8bit (\emph{uint8}) image, 8th plane is plane of 
+\emph{MSB}s.
+
+\subsubsection{Transformations}
+
+Transformation for getting nth plane from decimal number
+    integrally divide number to $2^{n-1}$ get the mode of result to the $2$
+
+Transformation for getting $n$th plane from binary number
+    bit shifting 
+
+compositing of bit-planes
+    for ith plane mutiply its element by $2^{i-1}$
+    pluse all multiplied planes
+
+number of colors in each bit plane: $2$
+number of colors by compositing m bit-plane: $2^m$
+
+\subsubsection{Octave lab}
