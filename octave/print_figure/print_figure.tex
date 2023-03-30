@@ -1,0 +1,61 @@
+\documentclass{article}
+
+
+\usepackage{fancyvrb}
+
+
+\begin{document}
+    
+
+Suppose we ran these commands in \textit{Octave}:
+\begin{Verbatim}
+    > mu=linspace(-20,20,1000);
+    > w=0.5;
+    > y=w*sin(pi*mu*w)./(pi*mu*w);
+    > hf = figure ();
+    > plot(mu,y);
+\end{Verbatim}
+And you want to export the diagram to a `.tex' document. Now you have three
+choices; but I prefer using \texttt{-dtikz} option:
+\begin{itemize}
+\item https://github.com/matlab2tikz/matlab2tikz
+\item export plot data and text data separately:
+    \begin{itemize}
+    \item export figure as `eps':
+    \begin{Verbatim}
+    > print -depslatex "figure-fig.tex"
+    \end{Verbatim}
+    In this case you will get an `eps' file with name
+    `figure-fig-inc.eps' which contains the figure plot and a `.tex'
+    file with name `figure-fig.tex' which includes text, words and
+    ... and also calls `.eps' file.
+    \item export figure as `pdf' and import to your document:
+    Then print to file with one of these:
+    \begin{Verbatim}
+    > print (hf, "plot15.pdf", "-dpdflatexstandalone");
+    \end{Verbatim}
+    In this case you will get a `pdf' file with name `plot15-inc.pdf'
+    which contains the figure plot and `.tex' file with name
+    `plot15.tex' which includes text, words and ... and also calls
+    `.pdf' file.
+    \end{itemize} 
+    In this case, you can import plot and text data by placing content of
+    `.tex' file in your main document or using \verb"\input" command for
+    inputting that `.tex' file. \textbf{Note} that you have to update the
+    path to `.pdf' or `.eps' files in \verb"\includegraphics" command of
+    `.tex' file relative to your main `.tex' document. For example if you
+    write this for inputting `.tex' file:
+    \verb"\input{./figures/figure-fig.tex}" which means the inputted
+    `.tex' file is in `./figures' directory, then in it the path to graphics
+    must be \verb"\includegraphics[scale=1]{./figures/figure-fig-inc}".
+\item using \texttt{-dtikz} option:\\
+    This command will export all data of plot, text and ... to one `.tex'
+    file. For example this command:
+    \begin{Verbatim}
+        > print -dtikz "myfile.tex"
+    \end{Verbatim}
+    will generate `myfile.tex' file for the \textit{current} figure and you only
+    need to import it by using \verb"\input" command.
+\end{itemize}
+
+\end{document}
