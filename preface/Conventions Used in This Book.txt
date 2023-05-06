@@ -1,0 +1,8 @@
+italic
+    image name
+
+Octave labs
+
+bibliography
+    digital image processing 43
+    Gonzalez
