@@ -1,0 +1,22 @@
+I used this in "AFT_0.m" file:
+
+	printf ("args of %s:\n", program_name ());
+	arg_list = argv ();
+	for i = 1:nargin
+	  printf (" %s", arg_list{i});
+	  printf ("\n");
+	endfor
+	printf ("\n");
+
+For passing args to that .m file, do like this in terminal:
+
+	$ octave-cli ./AFT_0.m 0 1
+	args of AFT_0.m:
+	 0
+	 1
+
+Note: I passed args in terminal by using <code>octave-cli</code> command. and 
+not in the command line of Octave. For passing in Octave command line, see 
+https://octave.discourse.group/t/input-arguments-not-recognized-in-the-script/1683/4
+and also search again.
+
